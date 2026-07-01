@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy Birthday Ishita — A Year in Memories</title>
+  <meta name="description"
+    content="A premium, mobile-first birthday experience for Ishita — scroll through stacked memory cards celebrating the best moments of the year." />
+  <meta name="theme-color" content="#F9F6F0" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Background Music -->
+  <audio id="bg-music" loop src="music.mp3?v=1.1" preload="auto"></audio>
+  <audio id="cake-music" loop src="cake.mp3" preload="auto"></audio>
+
+
+
+  <!-- Film Grain Overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Scroll Progress Dots -->
+  <nav class="progress-nav" id="progress-nav" aria-label="Memory progress">
+    <div class="progress-line">
+      <div class="progress-line__fill" id="progress-fill"></div>
+    </div>
+    <button class="progress-dot is-active" data-target="card-1" aria-label="Memory 1"></button>
+    <button class="progress-dot" data-target="card-2" aria-label="Memory 2"></button>
+    <button class="progress-dot" data-target="card-3" aria-label="Memory 3"></button>
+    <button class="progress-dot" data-target="card-4" aria-label="Memory 4"></button>
+    <button class="progress-dot" data-target="card-5" aria-label="Memory 5"></button>
+    <button class="progress-dot" data-target="card-6" aria-label="Memory 6"></button>
+    <button class="progress-dot" data-target="card-7" aria-label="Memory 7"></button>
+    <button class="progress-dot" data-target="card-8" aria-label="Memory 8"></button>
+    <button class="progress-dot" data-target="card-9" aria-label="Memory 9"></button>
+    <button class="progress-dot" data-target="card-10" aria-label="Memory 10"></button>
+    <button class="progress-dot" data-target="card-11" aria-label="Memory 11"></button>
+  </nav>
+
+  <!-- =============================================
+       HERO SECTION
+       ============================================= -->
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+      <div class="hero__eyebrow">
+        <span class="hero__line"></span>
+        <span class="hero__date">July 9, 2026</span>
+        <span class="hero__line"></span>
+      </div>
+
+      <h1 class="hero__title">
+        Happy<br />Birthday,<br /><em>Ishita.</em>
+      </h1>
+
+      <p class="hero__sub">
+        A year of spontaneous plans,<br />
+        handmade gifts &amp; showing up anyway.
+      </p>
+
+      <div class="hero__scroll-cue">
+        <span class="hero__scroll-text">scroll to explore</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </div>
+
+    <!-- Hero Scrapbook Decorations -->
+    <div class="hero__deco hero__deco--polaroid" aria-hidden="true">
+      <div class="hero__deco-tape"></div>
+      <img src="memory_3.jpg" alt="Mini polaroid of Ishita" />
+      <span class="hero__deco-caption">Best Year! ✨</span>
+    </div>
+    <img src="sticker_pizza.jpg" class="hero__deco hero__deco--sticker-pizza" alt="Pizza Sticker" aria-hidden="true" />
+    <img src="sticker_dosa.jpg" class="hero__deco hero__deco--sticker-dosa" alt="Dosa Sticker" aria-hidden="true" />
+    <div class="hero__deco hero__deco--stamp" aria-hidden="true">FRAGILE</div>
+    <div class="hero__deco hero__deco--star" aria-hidden="true">★</div>
+  </section>
+
+  <!-- =============================================
+       MEMORY CARDS — Sticky Stack
+       ============================================= -->
+  <div class="cards-container" id="cards-container">
+
+    <!-- ====== CARD 1 — The Birthday & The Box ====== -->
+    <section class="card" id="card-1" data-card-index="1">
+      <div class="card__inner card__inner--warm">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">01</span>
+          <span class="card__tag">July 9 — The OG Birthday</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="memory1.jpg" aria-label="Friends sharing pizza at Cafe Sandoz on July 9">
+              <source src="memory_1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="sticker_pizza.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-box">"what's in the box? 👀"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-1" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--poststamp" aria-hidden="true"><span>August 10</span><span>CP</span>
+          </div>
+          <div class="sticker-item sticker-item--badge" aria-hidden="true">Java Chip ☕</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">The Birthday<br />&amp; The Surprise</h2>
+          <p class="card__body anim-content">
+            August 10. CP, Sandoz, and the Bdayyy Gift. From eya being late everytime to her Bday Gift.
+            Chaos and Chaos all along the day.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 2 — The Dosa Challenge ====== -->
+    <section class="card" id="card-2" data-card-index="2">
+      <div class="card__inner card__inner--sage">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">02</span>
+          <span class="card__tag">Unplanned — Dosa Day</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="memory_2.jpg" aria-label="Two friends during the spontaneous dosa challenge">
+              <source src="memory_2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="sticker_dosa.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-band">"band krde yr" 💬</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-2" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--ticket" aria-hidden="true"><span>Laxmi Nagar</span><span> Hira Sweets
+            </span><span>★★★★★</span></div>
+          <div class="sticker-item sticker-item--stamp-ink" aria-hidden="true">EYA TEACHING DOSA</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">The Random<br />Challenge</h2>
+          <p class="card__body anim-content">
+            Eya randomly challenged me to come over, so I did. She ended up
+            having to teach me the proper art of eating a dosa, Sometimes the
+            best days are the ones we didn't plan at all.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 3 — The Iconic Party ====== -->
+    <section class="card" id="card-3" data-card-index="3">
+      <div class="card__inner card__inner--blush">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">03</span>
+          <span class="card__tag">Iconic n migraine</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <img class="card__photo" src="memory_3.jpg" alt="Friends at the iconic evening party" loading="lazy" />
+          </div>
+          <img class="card__sticker" src="sticker_party.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-fomo">"Mai dekhti hu aungi ya nahi"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-1" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--badge sticker-item--badge-party" aria-hidden="true">PARTY 🎟️
+          </div>
+          <div class="sticker-item sticker-item--star" aria-hidden="true">★</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">Fake Migraine<br />&amp; Late as usual</h2>
+          <p class="card__body anim-content">
+            When She can't say no directly, Manka called me and told me that she is not feeling well, She is suffering
+            from Migraine.She don't want to come to party donno why, Later we went to starbucks and yayyy had fun.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 4 — The 3 AM Tea Run ====== -->
+    <section class="card" id="card-4" data-card-index="4">
+      <div class="card__inner card__inner--warm">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">04</span>
+          <span class="card__tag">MAI DOBARA LATE HOGYI
+          </span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="memory_4.jpg" aria-label="Late night tea run">
+              <source src="memory_4.mov" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="s5.png" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-chai">"food first ☕"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-2" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--stamp-ink" aria-hidden="true">LETS DO MKT</div>
+          <div class="sticker-item sticker-item--badge" aria-hidden="true">MKT Hopping</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">run &<br />MKT</h2>
+          <p class="card__body anim-content">
+            So, It was 26 september, The day was my bday and she was late again yayyy. Eya said she boarded the wrong
+            metro, badme btadeti hai jhuth bol ri thi pr chalo thike, Had fun on my Bdayyyyyyyyy🥂,
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 5 — Metro Rants & Co. ====== -->
+    <section class="card" id="card-5" data-card-index="5">
+      <div class="card__inner card__inner--sage">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">05</span>
+          <span class="card__tag">Bucks Day </span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <div class="slideshow-grid-4">
+              <img class="card__photo" src="5_1.jpeg" alt="Flowers at CP" loading="lazy" />
+              <img class="card__photo" src="5_3.jpg" alt="Kunafa Chocolate" loading="lazy" />
+              <img class="card__photo" src="5_2.jpg" alt="Starbucks Keyring" loading="lazy" />
+              <img class="card__photo" src="5_4.png" alt="Starbucks Keyring" loading="lazy" />
+            </div>
+          </div>
+          <img class="card__sticker" src="logo star.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-wait">"mujhe dusra wala keyring chahie"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-1" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--metrocard" aria-hidden="true">chapar chapar</div>
+          <div class="sticker-item sticker-item--stamp-ink sticker-item--stamp-ink-red" aria-hidden="true">400+ Photos
+          </div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">starbucks Keyring<br />&amp; CP Evening</h2>
+          <p class="card__body anim-content">
+            We came to had kunafa Chocolate and Starbucks keyring, but you ended up being so happy after getting those
+            flowers, Have never seen you more happy than that day!
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 6 — The Library Silent War ====== -->
+    <section class="card" id="card-6" data-card-index="6">
+      <div class="card__inner card__inner--blush">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">06</span>
+          <span class="card__tag">Study — Library</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="memory7 Small.jpeg" aria-label="Library silent war">
+              <source src="memory_6.mov">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="chaos.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-photo">"no photos pls 🙈"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-2" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--poststamp sticker-item--poststamp-blue" aria-hidden="true">
+            <span>Chaos</span><span>🤫 SHH</span>
+          </div>
+          <div class="sticker-item sticker-item--badge" aria-hidden="true">chup chap piche aaa</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">Mt kr yrrrr <br /> Chal V3S chalte hai</h2>
+          <p class="card__body anim-content">
+            Random Meets, when i know her mood is not good... so i showed up being a responsible friend, had uncountable
+            fun and memories for the whole time !!! </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 7 — Drenched in the Rain ====== -->
+    <section class="card" id="card-7" data-card-index="7">
+      <div class="card__inner card__inner--warm">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">07</span>
+          <span class="card__tag">Waffle Day</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <div class="slideshow-grid-3">
+              <img class="card__photo" src="7_1.jpeg" alt="Rain walk" loading="lazy" />
+              <img class="card__photo" src="7_2.jpeg" alt="Waffles" loading="lazy" />
+              <img class="card__photo" src="7_3.jpeg" alt="Waffle Day Study" loading="lazy" />
+            </div>
+          </div>
+          <img class="card__sticker" src="waffle.png" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-plan">"Chal tujhe waffle khilake laati hu"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-1" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--badge" aria-hidden="true"> Waffles 🧇</div>
+          <div class="sticker-item sticker-item--stamp-ink" aria-hidden="true">Waffle is lob ❤️</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">The<br />Waffle Day</h2>
+          <p class="card__body anim-content">
+            Tujhe pta hai aaj mai dobara waffle kha aayi, yrr mai kya kru mai bohot waffle khane lagi hu, kabhi manka ke saath chali jaati hu kabhi gudda lejati hai, mujhe biscoff wala bilkul acha nahi laga pr gudda ne khalia
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 8 — The Night Before Jury ====== -->
+    <section class="card" id="card-8" data-card-index="8">
+      <div class="card__inner card__inner--sage">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">08</span>
+          <span class="card__tag">THE OG VRINDAVAN TRIP</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="8.jpeg" aria-label="Preparing for design jury">
+              <source src="memory_8.mov" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="s2.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-jury">"Mujhe Iskcon Jaana hai"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-2" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--stamp-ink sticker-item--stamp-ink-red" aria-hidden="true">Chal Harshill ke upar paani dalte hai
+          </div>
+          <div class="sticker-item sticker-item--badge" aria-hidden="true">Isse kehdo mujhse baat na krey</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">The Night<br />Ft. VRINDAVAN</h2>
+          <p class="card__body anim-content">
+            Yayyy... we finally went to Vrindavan. A little devotion, a lot of laughter, endless walks, and memories that made the trip unforgettable. Vrindavan was beautiful. Manifesting more trips again...✨
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 9 — The Golgappa Battle ====== -->
+    <section class="card" id="card-9" data-card-index="9">
+      <div class="card__inner card__inner--blush">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">09</span>
+          <span class="card__tag">Random Cafe Hopping</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="s4.jpg" aria-label="Spicy street food excursion">
+              <source src="memory_9.MOV">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="h.png" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-aesthetic">"meri photo mt le"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-1" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--ticket" aria-hidden="true"><span>Random</span><span> Cafe Hopping
+            </span><span>🧇🍕🍷</span></div>
+          <div class="sticker-item sticker-item--star" aria-hidden="true">★</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">Mai bs aagyi<br />Tu kaha hai?</h2>
+          <p class="card__body anim-content">
+           so that was the time, when 3 of us planned to go for dinner, You said mai bs aagyi and kaha wo nahi pta, Enjoyed music that day but had to go, but abh koi time ka jhanjat nahi harshill bro moved to a flat !
+        </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 10 — Sunset & Silhouette ====== -->
+    <section class="card" id="card-10" data-card-index="10">
+      <div class="card__inner card__inner--warm">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">10</span>
+          <span class="card__tag">SUBWAY TO TREE CAFE</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="s1.jpg" aria-label="Sunset views">
+              <source src="memory_10.mov" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="10_1.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-cup">"chal tujhe naye cafe leke chalu"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-2" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--badge" aria-hidden="true">piche piche aa mere</div>
+          <div class="sticker-item sticker-item--stamp-ink" aria-hidden="true">TREE CAFE</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">CAFE Hopping &amp;<br />Ft. CP </h2>
+          <p class="card__body anim-content">
+           That day, Very Randomly we went to Subway to have cookie and ice cream alongwith after travelling a long route out, we went to the tree cafe, Long n Long Way to go, May you explore more n more cafe in the coming year...  </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CARD 11 — To Many More Years ====== -->
+    <section class="card" id="card-11" data-card-index="11">
+      <div class="card__inner card__inner--sage">
+
+        <div class="card__accent"></div>
+
+        <div class="card__header">
+          <span class="card__number">11</span>
+          <span class="card__tag"> Kal Chalenge (KHAIR)</span>
+        </div>
+
+        <div class="card__media">
+          <div class="card__photo-wrap">
+            <video class="card__photo" autoplay loop muted playsinline webkit-playsinline preload="auto"
+              poster="memory_2.jpg" aria-label="Looking forward to more years of memories">
+              <source src="11 vid.MOV" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <img class="card__sticker" src="11_1.jpg" alt="" aria-hidden="true" />
+          <div class="card__quote-tag" id="quote-time">"Mai tere saaath kal jaungi"</div>
+          <div class="sticker-item sticker-item--tape sticker-item--tape-1" aria-hidden="true"></div>
+          <div class="sticker-item sticker-item--badge" aria-hidden="true">Wine and Dine</div>
+          <div class="sticker-item sticker-item--stamp-ink" aria-hidden="true">yrr aaj man nahi hai kal jaugi</div>
+        </div>
+
+        <div class="card__text">
+          <h2 class="card__title">Cafe Mocha<br />& The Wine 🍷</h2>
+          <p class="card__body anim-content">
+          After surviving weeks of "we'll plan soon" (and your expert-level avoidance 😭), we finally met, had fun at Café Mocha. Safe to say this one was worth waiting for—round two, very soon?  </p>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- =============================================
+       MOMENTS SECTION — Photo Carousel
+       ============================================= -->
+  <section class="moments" id="moments">
+    <div class="moments__inner">
+      <h2 class="moments__title">Many More Moments To Come... 🏎️</h2>
+      <p class="moments__sub">
+        Concluded many of your moments in this small website.<br />
+        Many to come, may you grow in life.
+      </p>
+
+      <div class="moments__carousel">
+        <div class="moments__track">
+          <!-- Slide items (repeated for infinite scroll) -->
+          <div class="moment-card"><img src="5_1.jpeg" alt="Moment 1" /></div>
+          <div class="moment-card"><img src="7_1.jpeg" alt="Moment 2" /></div>
+          <div class="moment-card"><img src="memory_3.jpg" alt="Moment 3" /></div>
+          <div class="moment-card"><img src="5_3.jpg" alt="Moment 4" /></div>
+          <div class="moment-card"><img src="7_2.jpeg" alt="Moment 5" /></div>
+          <div class="moment-card"><img src="memory_4.jpg" alt="Moment 6" /></div>
+          <div class="moment-card"><img src="5_2.JPG" alt="Moment 7" /></div>
+          <div class="moment-card"><img src="7_3.jpeg" alt="Moment 8" /></div>
+          <div class="moment-card"><img src="memory1.jpg" alt="Moment 9" /></div>
+          <div class="moment-card"><img src="memory7 Small.jpeg" alt="Moment 10" /></div>
+
+          <!-- Repeated for seamless loop -->
+          <div class="moment-card"><img src="5_1.jpeg" alt="Moment 1" /></div>
+          <div class="moment-card"><img src="7_1.jpeg" alt="Moment 2" /></div>
+          <div class="moment-card"><img src="memory_3.jpg" alt="Moment 3" /></div>
+          <div class="moment-card"><img src="5_3.jpg" alt="Moment 4" /></div>
+          <div class="moment-card"><img src="7_2.jpeg" alt="Moment 5" /></div>
+          <div class="moment-card"><img src="memory_4.jpg" alt="Moment 6" /></div>
+          <div class="moment-card"><img src="5_2.JPG" alt="Moment 7" /></div>
+          <div class="moment-card"><img src="7_3.jpeg" alt="Moment 8" /></div>
+          <div class="moment-card"><img src="memory1.jpg" alt="Moment 9" /></div>
+          <div class="moment-card"><img src="memory7 Small.jpeg" alt="Moment 10" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       STATS SECTION — Neo-Brutalism Style
+       ============================================= -->
+  <section class="stats" id="stats">
+    <div class="stats__inner">
+      <h2 class="stats__title">THE STATS<br>DON'T LIE 📊</h2>
+      <p class="stats__sub">A fully accurate, 100% scientific recap of Ishita's year.</p>
+
+      <div class="stats__grid">
+        <div class="stats-card stats-card--yellow">
+          <span class="stats-card__number">9,001</span>
+          <span class="stats-card__label">Slices of cake consumed</span>
+        </div>
+
+        <div class="stats-card stats-card--pink">
+          <span class="stats-card__number">♾️</span>
+          <span class="stats-card__label">Naps that were 'just 5 mins'</span>
+        </div>
+
+        <div class="stats-card stats-card--white">
+          <span class="stats-card__number">404</span>
+          <span class="stats-card__label">Times she said 'I'm on my way'</span>
+        </div>
+
+        <div class="stats-card stats-card--green">
+          <span class="stats-card__number">99.9%</span>
+          <span class="stats-card__label">Rate of being 'professionally late'</span>
+        </div>
+
+        <div class="stats-card stats-card--purple">
+          <span class="stats-card__number stats-card__number--text">"MT KR YRR"</span>
+          <span class="stats-card__label">Most repeated sentence</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CLOSING SECTION
+       ============================================= -->
+  <section class="closing" id="closing">
+    <div class="closing__inner">
+
+      <div class="closing__emoji">🎂</div>
+
+      <h2 class="closing__title">
+        Here's to<br />another year,<br /><em>Ishita.</em>
+      </h2>
+
+      <p class="closing__body anim-content">
+        Even when we are far apart, these memories remind me why our
+        friendship means everything. .
+      </p>
+
+      <p class="closing__sign anim-content">— with love, always.</p>
+
+      <!-- Interactive Cake Cutting Area -->
+      <div class="cake-area">
+        <p class="cake-area__prompt">Tap the knife or cake to blow candles &amp; make a wish! 🔪🎂</p>
+        <div class="cake-container">
+          <div class="interactive-knife" id="interactive-knife" aria-label="Knife">🔪</div>
+          <div class="interactive-cake" id="interactive-cake">
+            <div class="cake-candles">
+              <span class="candle-flame">🔥</span>
+              <span class="candle-flame">🔥</span>
+            </div>
+            🎂
+          </div>
+        </div>
+      </div>
+
+      <!-- Celebration Modal Popup -->
+      <div class="celebration-modal" id="celebration-modal" aria-hidden="true">
+        <div class="celebration-modal__content">
+          <button class="celebration-modal__close" id="close-modal-btn" aria-label="Close">&times;</button>
+          <div class="celebration-modal__header">🎂 Make A Wish!</div>
+          <h3 class="celebration-modal__title">A Special Wish for You ✨</h3>
+
+          <!-- Mini Polaroid Carousel inside Modal -->
+          <div class="modal-carousel">
+            <div class="modal-carousel__track">
+              <!-- Slide items (repeated for infinite scroll) -->
+              <div class="modal-moment-card"><img src="5_1.jpeg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="7_1.jpeg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="memory_3.jpg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="5_3.jpg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="7_2.jpeg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="memory_4.jpg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="5_2.JPG" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="7_3.jpeg" alt="Moment" /></div>
+
+              <!-- Repeated for infinite scroll loop -->
+              <div class="modal-moment-card"><img src="5_1.jpeg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="7_1.jpeg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="memory_3.jpg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="5_3.jpg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="7_2.jpeg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="memory_4.jpg" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="5_2.JPG" alt="Moment" /></div>
+              <div class="modal-moment-card"><img src="7_3.jpeg" alt="Moment" /></div>
+            </div>
+          </div>
+
+          <p class="celebration-modal__body">
+            Here's to the beautiful years behind us, and the uncountable memories we will create in the coming
+            years.<br><br>
+            May you grow, shine, and conquer all your dreams in life. You deserve the absolute best today and always!
+            💖🎉
+          </p>
+          <button class="celebration-modal__action-btn" id="keep-celebrating-btn">Keep Celebrating 🥂</button>
+        </div>
+      </div>
+
+      <div class="closing__footer">
+        <span>ALL Rights Reserved</span>
+        <span>·</span>
+        <span>July 2026</span>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

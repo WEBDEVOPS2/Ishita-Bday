@@ -1,0 +1,2151 @@
+/* ============================================
+   ISHITA'S BIRTHDAY — MOBILE-FIRST EDITORIAL
+   Sticky Card Stack · Warm Cream · Premium Feel
+   Playfair Display + Inter
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+:root {
+  --bg: #F9F6F0;
+  --bg-card: #FFFFFF;
+  --text: #2C2825;
+  --text-muted: #7A716A;
+  --text-light: #B0A89F;
+
+  /* Card accent colors */
+  --warm: #C8553D;
+  --warm-light: #F3E0DC;
+  --warm-glow: rgba(200, 85, 61, 0.08);
+
+  --sage: #6B8F71;
+  --sage-light: #DDE8DE;
+  --sage-glow: rgba(107, 143, 113, 0.08);
+
+  --blush: #C17E7E;
+  --blush-light: #F0DEDE;
+  --blush-glow: rgba(193, 126, 126, 0.08);
+
+  --ochre: #C9A85C;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(60, 50, 40, 0.06);
+  --shadow-md: 0 8px 30px rgba(60, 50, 40, 0.10);
+  --shadow-lg: 0 16px 50px rgba(60, 50, 40, 0.14);
+  --shadow-card: 0 -4px 30px rgba(60, 50, 40, 0.08);
+
+  /* Typography */
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+
+  /* Spacing */
+  --pad: 24px;
+  --pad-lg: 32px;
+  --radius: 16px;
+  --radius-sm: 12px;
+
+  /* Easing */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   RESET
+   ============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto;
+  /* Let GSAP handle smoothness */
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--blush);
+  color: #FFF;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Safari safe area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: var(--pad);
+  overflow: hidden;
+}
+
+/* Subtle decorative circle */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 85, 61, 0.08);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(107, 143, 113, 0.08);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero__inner {
+  text-align: center;
+  max-width: 400px;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  opacity: 0;
+}
+
+.hero__line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--text-light);
+}
+
+.hero__date {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 11vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 20px;
+  opacity: 0;
+}
+
+.hero__title em {
+  font-style: italic;
+  color: var(--warm);
+}
+
+.hero__sub {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  opacity: 0;
+}
+
+.hero__scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+}
+
+.hero__scroll-text {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--text-light), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scaleY(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1.3);
+    transform-origin: top;
+  }
+}
+
+/* ============================================
+   CARDS CONTAINER
+   ============================================ */
+.cards-container {
+  position: relative;
+}
+
+/* ============================================
+   INDIVIDUAL CARD — STICKY STACK
+   ============================================ */
+.card {
+  position: relative;
+  height: 200vh;
+  /* Balanced scroll height: 100vh of solid reading, 100vh of transition */
+}
+
+.card:last-of-type {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Stack ordering: support up to 11 cards */
+.card[data-card-index="1"] {
+  z-index: 1;
+}
+
+.card[data-card-index="2"] {
+  z-index: 2;
+}
+
+.card[data-card-index="3"] {
+  z-index: 3;
+}
+
+.card[data-card-index="4"] {
+  z-index: 4;
+}
+
+.card[data-card-index="5"] {
+  z-index: 5;
+}
+
+.card[data-card-index="6"] {
+  z-index: 6;
+}
+
+.card[data-card-index="7"] {
+  z-index: 7;
+}
+
+.card[data-card-index="8"] {
+  z-index: 8;
+}
+
+.card[data-card-index="9"] {
+  z-index: 9;
+}
+
+.card[data-card-index="10"] {
+  z-index: 10;
+}
+
+.card[data-card-index="11"] {
+  z-index: 11;
+}
+
+.card__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--pad);
+  padding-top: 48px;
+  padding-bottom: 48px;
+  overflow: hidden;
+  /* Top shadow to create "card sliding over" depth */
+  box-shadow: 0 -8px 40px rgba(60, 50, 40, 0.12);
+  will-change: transform, filter, border-radius;
+  transform-origin: center center;
+  border-radius: 0;
+  transition: border-radius 0.3s ease;
+}
+
+/* --- Accent Line (decorative sweep) --- */
+.card__accent {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.card__inner--warm .card__accent {
+  background: var(--warm);
+}
+
+.card__inner--sage .card__accent {
+  background: var(--sage);
+}
+
+.card__inner--blush .card__accent {
+  background: var(--blush);
+}
+
+/* Card color variants */
+.card__inner--warm {
+  background: linear-gradient(175deg, var(--bg) 0%, var(--warm-light) 100%);
+}
+
+.card__inner--sage {
+  background: linear-gradient(175deg, var(--bg) 0%, var(--sage-light) 100%);
+}
+
+.card__inner--blush {
+  background: linear-gradient(175deg, var(--bg) 0%, var(--blush-light) 100%);
+}
+
+/* --- Card Header --- */
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card__number {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+  display: inline-block;
+  /* needed for stamp transform */
+  transform-origin: center bottom;
+}
+
+.card__tag {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+/* Mobile overrides for card header elements */
+@media (max-width: 599px) {
+  .card__number {
+    font-size: 1.15rem;
+  }
+  .card__tag {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+}
+
+/* --- Card Media --- */
+.card__media {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.card__photo-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: #E8E3DC;
+}
+
+.card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Card 5 Slideshow Stack styles */
+.card__photo-wrap--slideshow {
+  position: relative;
+  overflow: visible !important;
+  /* Allow the card to slide out of the frame visually */
+}
+
+.slideshow-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  /* Clip the slides within the polaroid frame */
+}
+
+.slideshow-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform, z-index;
+}
+
+/* Grid / Collage Layouts for Cards 5 & 7 (displays all photos at once) */
+.slideshow-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  background: #E8E3DC;
+  border-radius: inherit;
+}
+
+.slideshow-grid-4 .card__photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border: 4px solid #ffffff;
+  transform: rotate(var(--rot, 0deg));
+}
+
+/* Individual rotations for organic scrapbook look */
+.slideshow-grid-4 .card__photo:nth-child(1) { --rot: -2deg; }
+.slideshow-grid-4 .card__photo:nth-child(2) { --rot: 1.5deg; }
+.slideshow-grid-4 .card__photo:nth-child(3) { --rot: 3deg; }
+.slideshow-grid-4 .card__photo:nth-child(4) { --rot: -1.5deg; }
+
+.slideshow-grid-3 {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  background: #E8E3DC;
+  border-radius: inherit;
+}
+
+.slideshow-grid-3 .card__photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border: 4px solid #ffffff;
+  transform: rotate(var(--rot, 0deg));
+}
+
+.slideshow-grid-3 .card__photo:nth-child(1) {
+  grid-row: span 2;
+  --rot: -1.5deg;
+}
+.slideshow-grid-3 .card__photo:nth-child(2) { --rot: 2.5deg; }
+.slideshow-grid-3 .card__photo:nth-child(3) { --rot: -2deg; }
+
+/* Hide iOS Safari native video start playback button overlay & controls */
+.card__photo::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+
+.card__photo::-webkit-media-controls {
+  display: none !important;
+}
+
+.card__photo::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+/* Color block reveal curtain */
+.reveal-block {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Sticker overlay */
+.card__sticker {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+  border: 3px solid var(--bg);
+  z-index: 10;
+}
+
+/* Position stickers differently per card */
+.card__inner--warm .card__sticker {
+  bottom: -12px;
+  right: 16px;
+  transform: rotate(8deg);
+}
+
+.card__inner--sage .card__sticker {
+  bottom: -10px;
+  left: 16px;
+  transform: rotate(-6deg);
+}
+
+.card__inner--blush .card__sticker {
+  top: -12px;
+  right: 20px;
+  transform: rotate(12deg);
+}
+
+/* Quote Tag Base */
+.card__quote-tag {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  box-shadow: 0 8px 20px rgba(60, 50, 40, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  z-index: 5;
+  pointer-events: none;
+  /* Will be animated by GSAP */
+  will-change: transform, opacity;
+}
+
+/* Unique positioning per card for organic feel */
+.card__inner--warm .card__quote-tag {
+  top: 10%;
+  left: -15px;
+  transform: rotate(-6deg);
+}
+
+.card__inner--sage .card__quote-tag {
+  top: 15%;
+  right: -15px;
+  transform: rotate(5deg);
+}
+
+.card__inner--blush .card__quote-tag {
+  bottom: 12%;
+  left: -10px;
+  transform: rotate(-4deg);
+}
+
+/* --- Card Text --- */
+.card__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+/* Per-card title accent underline */
+.card__inner--warm .card__title {
+  text-decoration-color: var(--warm);
+}
+
+.card__inner--sage .card__title {
+  text-decoration-color: var(--sage);
+}
+
+.card__inner--blush .card__title {
+  text-decoration-color: var(--blush);
+}
+
+.card__body {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 380px;
+}
+
+/* ============================================
+   CONTENT ANIMATION STATE
+   (starting state — GSAP will animate in)
+   ============================================ */
+.anim-content {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* ============================================
+   CLOSING SECTION
+   ============================================ */
+.closing {
+  position: relative;
+  z-index: 4;
+  /* Above all cards */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  box-shadow: var(--shadow-card);
+}
+
+.closing__inner {
+  text-align: center;
+  padding: var(--pad-lg);
+  max-width: 400px;
+}
+
+.closing__emoji {
+  font-size: 3.5rem;
+  margin-bottom: 24px;
+  display: block;
+  animation: floatCake 3s ease-in-out infinite;
+}
+
+@keyframes floatCake {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.closing__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.closing__title em {
+  font-style: italic;
+  color: var(--warm);
+}
+
+.closing__body {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.closing__sign {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-light);
+  letter-spacing: 0.03em;
+  margin-bottom: 48px;
+}
+
+.closing__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  opacity: 0.6;
+}
+
+/* ============================================
+   RESPONSIVE — TABLET / DESKTOP ENHANCEMENT
+   ============================================ */
+@media (min-width: 600px) {
+  :root {
+    --pad: 40px;
+    --pad-lg: 48px;
+  }
+
+  .card__inner {
+    padding-left: 15%;
+    padding-right: 15%;
+    align-items: center;
+  }
+
+  .card__media {
+    max-width: 420px;
+    width: 100%;
+  }
+
+  .card__text {
+    max-width: 420px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .card__photo-wrap {
+    aspect-ratio: 3 / 4;
+  }
+
+  .card__sticker {
+    width: 88px;
+    height: 88px;
+  }
+
+  .hero__title {
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card__inner {
+    flex-direction: row;
+    gap: 48px;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .card__media {
+    flex: 1;
+    max-width: 400px;
+  }
+
+  .card__text {
+    flex: 1;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .card__photo-wrap {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* ============================================
+   FILM GRAIN OVERLAY
+   ============================================ */
+.grain {
+  position: fixed;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  z-index: 9998;
+  pointer-events: none;
+  background: repeating-conic-gradient(#7A716A 0.00009%,
+      transparent 0.00105%) 50% 50% / 800px 800px;
+  opacity: 0.028;
+  animation: grainDrift 0.6s steps(1) infinite;
+}
+
+@keyframes grainDrift {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-2%, -3%);
+  }
+
+  50% {
+    transform: translate(1%, 2%);
+  }
+
+  75% {
+    transform: translate(-1%, 1%);
+  }
+
+  100% {
+    transform: translate(2%, -1%);
+  }
+}
+
+/* ============================================
+   SCROLL PROGRESS INDICATOR
+   ============================================ */
+.progress-nav {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.progress-nav.is-visible {
+  opacity: 1;
+}
+
+/* Vertical connecting line */
+.progress-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(44, 40, 37, 0.08);
+  z-index: -1;
+}
+
+.progress-line__fill {
+  width: 100%;
+  height: 0%;
+  background: var(--warm);
+  transition: height 0.6s var(--ease-smooth);
+  border-radius: 1px;
+}
+
+/* Dots */
+.progress-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-light);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.5s var(--ease-bounce);
+  position: relative;
+}
+
+.progress-dot:hover {
+  border-color: var(--text-muted);
+}
+
+.progress-dot.is-active {
+  background: var(--warm);
+  border-color: var(--warm);
+  transform: scale(1.6);
+  box-shadow: 0 0 0 3px rgba(200, 85, 61, 0.15);
+}
+
+/* ============================================
+   WORD-BY-WORD TITLE ANIMATION
+   ============================================ */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 2px;
+  /* prevent descender clip */
+}
+
+.word-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* ============================================
+   FLOATING PARTICLES
+   ============================================ */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ============================================
+   MUSIC TOGGLE BUTTON
+   ============================================ */
+.music-toggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 300;
+  background: rgba(249, 246, 240, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(44, 40, 37, 0.12);
+  padding: 8px 14px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 15px rgba(60, 50, 40, 0.04);
+}
+
+.music-toggle:hover {
+  background: rgba(249, 246, 240, 0.95);
+  border-color: rgba(44, 40, 37, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(60, 50, 40, 0.08);
+}
+
+.music-toggle__icon {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 14px;
+  height: 12px;
+}
+
+.music-toggle__icon .bar {
+  display: inline-block;
+  width: 2px;
+  background-color: var(--text-light);
+  transform-origin: bottom;
+  transition: background-color 0.3s ease, height 0.3s ease;
+}
+
+.music-toggle__icon .bar:nth-child(1) {
+  height: 40%;
+}
+
+.music-toggle__icon .bar:nth-child(2) {
+  height: 80%;
+}
+
+.music-toggle__icon .bar:nth-child(3) {
+  height: 50%;
+}
+
+.music-toggle__icon .bar:nth-child(4) {
+  height: 100%;
+}
+
+/* Animate the bars when playing */
+.music-toggle.is-playing .music-toggle__icon .bar {
+  background-color: var(--warm);
+  animation: soundwave 1.2s ease-in-out infinite alternate;
+}
+
+.music-toggle.is-playing .music-toggle__icon .bar:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+.music-toggle.is-playing .music-toggle__icon .bar:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.music-toggle.is-playing .music-toggle__icon .bar:nth-child(3) {
+  animation-delay: 0.0s;
+}
+
+.music-toggle.is-playing .music-toggle__icon .bar:nth-child(4) {
+  animation-delay: 0.45s;
+}
+
+@keyframes soundwave {
+  0% {
+    transform: scaleY(0.35);
+  }
+
+  100% {
+    transform: scaleY(1.1);
+  }
+}
+
+/* ============================================
+   HERO DECORATIONS
+   ============================================ */
+.hero__deco {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  z-index: 5;
+}
+
+/* Polaroid Decoration */
+.hero__deco--polaroid {
+  top: 15%;
+  right: 8%;
+  width: 105px;
+  background: #ffffff;
+  padding: 8px 8px 18px 8px;
+  box-shadow: 0 10px 25px rgba(60, 50, 40, 0.1);
+  transform: rotate(8deg);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.hero__deco--polaroid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.hero__deco-caption {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  color: var(--text-light);
+  display: block;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.hero__deco-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 45px;
+  height: 14px;
+  background: rgba(220, 215, 205, 0.5);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+  border-left: 1px dashed rgba(0, 0, 0, 0.08);
+  border-right: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+/* Pizza Sticker */
+.hero__deco--sticker-pizza {
+  left: 8%;
+  top: 25%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 8px 16px rgba(60, 50, 40, 0.1);
+  transform: rotate(-15deg);
+}
+
+/* Dosa Sticker */
+.hero__deco--sticker-dosa {
+  right: 12%;
+  bottom: 22%;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 8px 16px rgba(60, 50, 40, 0.1);
+  transform: rotate(12deg);
+}
+
+/* Stamp Decoration */
+.hero__deco--stamp {
+  left: 14%;
+  bottom: 24%;
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--warm);
+  border: 1px dashed var(--warm);
+  padding: 4px 8px;
+  transform: rotate(-8deg);
+  border-radius: 2px;
+}
+
+/* Star Decoration */
+.hero__deco--star {
+  top: 15%;
+  left: 28%;
+  font-size: 1.2rem;
+  color: var(--sage);
+  transform: rotate(15deg);
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 480px) {
+  .hero__deco--polaroid {
+    width: 85px;
+    right: 4%;
+    top: 12%;
+    transform: rotate(6deg);
+  }
+
+  .hero__deco--sticker-pizza {
+    left: 4%;
+    top: 28%;
+    width: 50px;
+    height: 50px;
+  }
+
+  .hero__deco--sticker-dosa {
+    right: 6%;
+    bottom: 24%;
+    width: 55px;
+    height: 55px;
+  }
+
+  .hero__deco--stamp {
+    left: 8%;
+    bottom: 22%;
+  }
+
+  .hero__deco--star {
+    left: 24%;
+    top: 18%;
+  }
+}
+
+/* ============================================
+   INTERACTIVE SCRAPBOOK STICKERS
+   ============================================ */
+.sticker-item {
+  position: absolute;
+  z-index: 25;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.sticker-item:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  /* Float to front when hovering */
+}
+
+/* Washi Tape Stickers */
+.sticker-item--tape {
+  width: 58px;
+  height: 18px;
+  background: rgba(225, 210, 190, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-left: 1px dashed rgba(0, 0, 0, 0.08);
+  border-right: 1px dashed rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.sticker-item--tape-1 {
+  top: -10px;
+  left: 20px;
+  transform: rotate(-14deg);
+  background: rgba(200, 85, 61, 0.28);
+  /* Warm red tint */
+}
+
+.sticker-item--tape-2 {
+  bottom: -8px;
+  right: 25px;
+  transform: rotate(18deg);
+  background: rgba(107, 143, 113, 0.28);
+  /* Sage green tint */
+}
+
+/* Vintage Post Stamps */
+.sticker-item--poststamp {
+  width: 58px;
+  height: 70px;
+  background: #fdfdfa;
+  border: 4px dotted #ffffff;
+  outline: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 12px rgba(60, 50, 40, 0.08);
+  padding: 4px;
+  transform: rotate(6deg);
+  top: 15px;
+  right: 15px;
+}
+
+.sticker-item--poststamp span:first-child {
+  font-family: var(--font-body);
+  font-size: 0.42rem;
+  font-weight: 600;
+  color: var(--text-light);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+  text-align: center;
+  padding-bottom: 2px;
+  letter-spacing: 0.05em;
+}
+
+.sticker-item--poststamp span:last-child {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--warm);
+  margin-top: 5px;
+}
+
+.sticker-item--poststamp-blue span:last-child {
+  color: var(--sage);
+}
+
+/* Scrapbook Badges */
+.sticker-item--badge {
+  background: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 16px rgba(60, 50, 40, 0.07);
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: var(--text);
+  transform: rotate(-6deg);
+  bottom: 15px;
+  left: 20px;
+  white-space: nowrap;
+}
+
+.sticker-item--badge-party {
+  background: linear-gradient(135deg, #FFF0EE 0%, #FFE5E2 100%);
+  color: var(--warm);
+  border-color: rgba(200, 85, 61, 0.1);
+}
+
+/* Ticket Stub Stickers */
+.sticker-item--ticket {
+  width: 110px;
+  background: #F4EAD4;
+  border: 1px dashed rgba(44, 40, 37, 0.25);
+  padding: 6px 8px;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(60, 50, 40, 0.06);
+  transform: rotate(-8deg);
+  bottom: 25px;
+  left: 15px;
+}
+
+/* Ticket notches */
+.sticker-item--ticket::before,
+.sticker-item--ticket::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: #f9f6f0;
+  /* Color match container background */
+  border-radius: 50%;
+  border: 1px solid rgba(44, 40, 37, 0.15);
+}
+
+.sticker-item--ticket::before {
+  left: -6px;
+}
+
+.sticker-item--ticket::after {
+  right: -6px;
+}
+
+.sticker-item--ticket span:first-child {
+  font-family: var(--font-body);
+  font-size: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  text-transform: uppercase;
+}
+
+.sticker-item--ticket span:nth-child(2) {
+  font-family: var(--font-body);
+  font-size: 0.52rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 1px 0;
+  white-space: nowrap;
+}
+
+.sticker-item--ticket span:last-child {
+  font-size: 0.5rem;
+  color: var(--warm);
+  letter-spacing: 0.05em;
+}
+
+/* Distress Ink Stamps */
+.sticker-item--stamp-ink {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: rgba(107, 143, 113, 0.85);
+  /* Sage ink */
+  border: 2px solid rgba(107, 143, 113, 0.6);
+  padding: 3px 6px;
+  border-radius: 3px;
+  transform: rotate(-12deg);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.85;
+  top: 25px;
+  left: 20px;
+  white-space: nowrap;
+}
+
+.sticker-item--stamp-ink-red {
+  color: rgba(200, 85, 61, 0.85);
+  border-color: rgba(200, 85, 61, 0.6);
+}
+
+/* Star sticker */
+.sticker-item--star {
+  font-size: 1.2rem;
+  color: #E2B659;
+  transform: rotate(18deg);
+  top: 15px;
+  left: 15px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.05));
+}
+
+/* Delhi Metro Card Sticker */
+.sticker-item--metrocard {
+  width: 72px;
+  height: 46px;
+  background: linear-gradient(135deg, #E2B659 0%, #cfa140 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 10px rgba(60, 50, 40, 0.09);
+  padding: 4px;
+  color: white;
+  font-family: var(--font-body);
+  font-size: 0.38rem;
+  font-weight: 700;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transform: rotate(12deg);
+  bottom: 25px;
+  right: 25px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive adjustments for mobile sticker overlays */
+@media (max-width: 480px) {
+  .sticker-item {
+    transform: scale(0.85) !important;
+  }
+
+  .sticker-item:hover {
+    transform: scale(0.95) !important;
+  }
+
+  .sticker-item--poststamp {
+    top: 5px;
+    right: 5px;
+  }
+
+  .sticker-item--badge {
+    bottom: 5px;
+    left: 5px;
+  }
+
+  .sticker-item--ticket {
+    bottom: 10px;
+    left: 5px;
+  }
+
+  .sticker-item--stamp-ink {
+    top: 15px;
+    left: 10px;
+  }
+
+  .sticker-item--star {
+    top: 5px;
+    left: 5px;
+  }
+
+  .sticker-item--metrocard {
+    bottom: 15px;
+    right: 5px;
+  }
+}
+
+/* ============================================
+   MOMENTS SECTION (PHOTO CAROUSEL)
+   ============================================ */
+.moments {
+  background-color: var(--bg-paper);
+  /* Warm cream theme background */
+  padding: 100px 24px 80px 24px;
+  position: relative;
+  overflow: hidden;
+  z-index: 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moments__inner {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.moments__title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.moments__sub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.moments__carousel {
+  overflow: hidden;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 40px 0;
+  margin-top: 40px;
+}
+
+/* Vignette gradient masks on the sides */
+.moments__carousel::before,
+.moments__carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.moments__carousel::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-paper), transparent);
+}
+
+.moments__carousel::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-paper), transparent);
+}
+
+.moments__track {
+  display: flex;
+  gap: 16px; /* Slightly wider gap for balanced look */
+  width: max-content;
+  animation: infinite-scroll 24s linear infinite;
+  will-change: transform;
+}
+
+.moment-card {
+  width: 115px; /* A sweet-spot size: larger than 90px but smaller than 135px */
+  background: #ffffff;
+  padding: 7px 7px 24px 7px; /* Balanced border and bottom polaroid caption spacing */
+  box-shadow: 0 8px 24px rgba(60, 50, 40, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+  flex-shrink: 0;
+}
+
+/* Alternating tilt angles for physical scrapbook feel */
+.moment-card:nth-child(4n+1) {
+  transform: rotate(-3.5deg) translateY(2px);
+}
+
+.moment-card:nth-child(4n+2) {
+  transform: rotate(2.5deg) translateY(-2px);
+}
+
+.moment-card:nth-child(4n+3) {
+  transform: rotate(-2deg) translateY(-3px);
+}
+
+.moment-card:nth-child(4n+4) {
+  transform: rotate(3.5deg) translateY(3px);
+}
+
+.moment-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
+
+.moment-card:hover {
+  transform: scale(1.15) rotate(0deg) translateY(-10px) !important;
+  z-index: 10;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+}
+
+/* Pause scroll animation on hover */
+.moments__track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-50% - 12px));
+    /* Half of track width + half of gap compensation */
+  }
+}
+
+/* Adjustments for desktop or wider screens */
+@media (min-width: 768px) {
+  .moments__title {
+    font-size: 2.8rem;
+  }
+
+  .moments__sub {
+    font-size: 1.1rem;
+  }
+
+  .moments__track {
+    gap: 24px; /* Restore original spacious gap on desktop */
+  }
+
+  .moment-card {
+    width: 170px;
+    padding: 10px 10px 36px 10px;
+  }
+}
+
+/* ============================================
+   CAKE CUTTING & CELEBRATION MODAL
+   ============================================ */
+/* ============================================
+   CAKE CUTTING & CELEBRATION MODAL
+   ============================================ */
+.cake-area {
+  margin: 50px auto 30px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 15;
+}
+
+.cake-area__prompt {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+
+.cake-container {
+  position: relative;
+  width: 380px;
+  height: 260px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.interactive-knife {
+  position: absolute;
+  left: -35px;
+  bottom: 70px;
+  font-size: 6.5rem;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  animation: knife-bob 2s ease-in-out infinite;
+  z-index: 20;
+  user-select: none;
+}
+
+.interactive-knife:hover {
+  transform: scale(1.2) rotate(-15deg);
+}
+
+@keyframes knife-bob {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-8deg);
+  }
+}
+
+.interactive-cake {
+  font-size: 10.5rem;
+  position: relative;
+  user-select: none;
+  line-height: 1;
+}
+
+.cake-candles {
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  width: 100%;
+}
+
+.candle-flame {
+  font-size: 2.6rem;
+  display: inline-block;
+  animation: flicker 0.6s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+@keyframes flicker {
+  0% {
+    transform: scale(1) rotate(-3deg);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(1.15) rotate(3deg);
+    opacity: 1;
+  }
+}
+
+/* Celebration Modal Popup */
+.celebration-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 21, 19, 0.7);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2000;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.celebration-modal.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.celebration-modal__content {
+  background: linear-gradient(135deg, #B16BFF 0%, #7209B7 100%);
+  /* Vibrant Purple Gradient */
+  width: 90%;
+  max-width: 460px;
+  padding: 45px 36px;
+  border-radius: var(--radius-lg);
+  border: 4px solid #000000;
+  /* Solid bold neo-brutalism frame */
+  box-shadow: 12px 12px 0 #000000;
+  position: relative;
+  text-align: center;
+  transform: translateY(35px);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.celebration-modal.is-active .celebration-modal__content {
+  transform: translateY(0);
+}
+
+/* Mini Polaroid Carousel inside celebration modal */
+.modal-carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 18px 0;
+  margin: 15px 0 25px 0;
+  background: rgba(0, 0, 0, 0.12);
+  /* darker tint background for the conveyor belt */
+  border-radius: 8px;
+}
+
+/* Vignette gradient masks for modal carousel */
+.modal-carousel::before,
+.modal-carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 45px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.modal-carousel::before {
+  left: 0;
+  background: linear-gradient(to right, #9C4FFC, transparent);
+}
+
+.modal-carousel::after {
+  right: 0;
+  background: linear-gradient(to left, #821DCD, transparent);
+}
+
+.modal-carousel__track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: modal-infinite-scroll 18s linear infinite;
+  will-change: transform;
+}
+
+.modal-moment-card {
+  width: 66px;
+  height: 76px;
+  background: #ffffff;
+  padding: 4px 4px 14px 4px;
+  /* Polaroid bottom border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 2px;
+  flex-shrink: 0;
+  transform-origin: center;
+}
+
+/* Alternating rotations for scrapbook design */
+.modal-moment-card:nth-child(even) {
+  transform: rotate(3deg);
+}
+
+.modal-moment-card:nth-child(odd) {
+  transform: rotate(-3deg);
+}
+
+.modal-moment-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1px;
+  display: block;
+}
+
+@keyframes modal-infinite-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-50% - 6px));
+    /* half track width including gap */
+  }
+}
+
+.celebration-modal__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 2.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+}
+
+.celebration-modal__close:hover {
+  color: #FFE234;
+  transform: rotate(90deg);
+}
+
+.celebration-modal__header {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FFE234;
+  /* Neon Yellow stands out on Purple */
+  text-shadow: 2px 2px 0px #000000;
+  margin-bottom: 12px;
+}
+
+.celebration-modal__title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #FFFFFF;
+  /* High contrast white */
+  text-shadow: 3px 3px 0px #000000;
+}
+
+.celebration-modal__body {
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #F5EFFF;
+  /* Soft light text */
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.celebration-modal__action-btn {
+  background-color: #FFE234;
+  /* Bright Yellow button */
+  font-family: var(--font-body);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  color: #000000;
+  padding: 14px 28px;
+  border: 3px solid #000000;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 #000000;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.celebration-modal__action-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000000;
+}
+
+.celebration-modal__action-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000000;
+}
+
+/* ============================================
+   STATS SECTION (NEO-BRUTALISM)
+   ============================================ */
+.stats {
+  background-color: #18DDFF;
+  /* Bright cyan background */
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.stats__inner {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats__title {
+  font-family: 'Archivo Black', 'Inter', sans-serif;
+  font-size: 2.3rem;
+  font-weight: 900;
+  line-height: 1.15;
+  color: #000000;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  opacity: 0;
+  /* Animated by GSAP */
+  transform: translateY(30px);
+}
+
+.stats__sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.45;
+  margin-bottom: 40px;
+  max-width: 340px;
+  opacity: 0;
+  /* Animated by GSAP */
+  transform: translateY(20px);
+}
+
+.stats__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  align-items: center;
+}
+
+/* Neo-Brutalism Cards */
+.stats-card {
+  width: 100%;
+  max-width: 340px;
+  border: 3.5px solid #000000;
+  border-radius: 20px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 8px 0px #000000;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+  cursor: pointer;
+  opacity: 0;
+  /* Animated by GSAP */
+  transform: scale(0.8) translateY(30px);
+}
+
+.stats-card:hover {
+  transform: translateY(-4px) scale(1.03) !important;
+  box-shadow: 0px 12px 0px #000000;
+}
+
+.stats-card:active {
+  transform: translateY(4px) scale(0.98) !important;
+  box-shadow: 0px 4px 0px #000000;
+}
+
+.stats-card--yellow {
+  background-color: #FFE234;
+  /* Neon Yellow */
+  transform: rotate(-1.5deg);
+}
+
+.stats-card--pink {
+  background-color: #EC4899;
+  /* Neon Pink */
+  transform: rotate(1.8deg);
+}
+
+.stats-card--white {
+  background-color: #FFFFFF;
+  /* Pure White */
+  transform: rotate(-1.2deg);
+}
+
+.stats-card--green {
+  background-color: #1DFF80;
+  /* Neon Lime Green */
+  transform: rotate(1.4deg);
+}
+
+.stats-card--purple {
+  background-color: #B16BFF;
+  /* Neon Purple */
+  transform: rotate(-1.5deg);
+}
+
+.stats-card__number {
+  font-family: 'Archivo Black', 'Inter', sans-serif;
+  font-size: 3.4rem;
+  font-weight: 900;
+  color: #000000;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.stats-card__number--text {
+  font-size: 2.1rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .stats-card__number--text {
+    font-size: 1.6rem;
+  }
+}
+
+.stats-card__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #000000;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+/* Adjustments for desktop or wider screens */
+@media (min-width: 768px) {
+  .stats__inner {
+    max-width: 500px;
+  }
+
+  .stats__title {
+    font-size: 2.8rem;
+  }
+
+  .stats-card {
+    max-width: 380px;
+    padding: 28px 20px;
+  }
+}
+
+/* Scoped adjustments for Card 6 stickers to prevent overlaps */
+#card-6 .sticker-item--poststamp {
+  top: 15px;
+  left: 15px;
+  right: auto;
+  transform: rotate(-8deg);
+}
+
+#card-6 .sticker-item--badge {
+  bottom: 15px;
+  right: 25px;
+  left: auto;
+  transform: rotate(8deg);
+}
+
+/* Scoped adjustments for Card 2 stickers to prevent overlaps */
+#card-2 .sticker-item--ticket {
+  bottom: 105px;
+  left: -15px;
+  transform: rotate(-10deg);
+}
+
+/* Scoped adjustments for Card 8 stickers to prevent overlaps */
+#card-8 .sticker-item--badge {
+  bottom: 30px;
+  right: 15px;
+  left: auto;
+  transform: rotate(6deg);
+}
+
+/* Scoped adjustments for Card 9 stickers to prevent overlaps */
+#card-9 .sticker-item--ticket {
+  position: absolute;
+  bottom: 25px;
+  right: 15px;
+  left: auto;
+  transform: rotate(8deg);
+}
+
+/* Scoped adjustments for Card 11 stickers to prevent overlaps */
+#card-11 .sticker-item--badge {
+  bottom: 30px;
+  right: 15px;
+  left: auto;
+  transform: rotate(6deg);
+}
+
+/* ============================================
+   ACCESSIBILITY — Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .anim-content {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__eyebrow,
+  .hero__title,
+  .hero__sub,
+  .hero__scroll-cue {
+    opacity: 1;
+  }
+
+  .word-inner {
+    transform: none;
+  }
+
+  .grain,
+  .particle {
+    display: none;
+  }
+}
