@@ -1433,6 +1433,13 @@ img {
     bottom: 15px;
     right: 5px;
   }
+
+  #card-5 .sticker-item--metrocard {
+    bottom: -15px;
+    left: 40%;
+    right: auto;
+    transform: scale(0.85) rotate(5deg);
+  }
 }
 
 /* ============================================
@@ -2088,6 +2095,14 @@ img {
   bottom: 105px;
   left: -15px;
   transform: rotate(-10deg);
+}
+
+/* Scoped adjustments for Card 5 stickers to prevent overlaps */
+#card-5 .sticker-item--metrocard {
+  bottom: -20px;
+  left: 40%;
+  right: auto;
+  transform: rotate(5deg);
 }
 
 /* Scoped adjustments for Card 8 stickers to prevent overlaps */
