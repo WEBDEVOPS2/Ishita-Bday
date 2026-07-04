@@ -1177,6 +1177,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (keepCelebBtn) keepCelebBtn.addEventListener('click', closeModal);
 
   // ==============================
+  // 14.95 ASSET DOWNLOAD PREVENTION
+  // ==============================
+  // Disable context menu (right-click) globally on images and videos
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO' || e.target.closest('.card__media')) {
+      e.preventDefault();
+    }
+  });
+
+  // Disable dragging of images/videos globally
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+      e.preventDefault();
+    }
+  });
+
+  // ==============================
   // 15. REFRESH SCROLLTRIGGER
   // ==============================
   window.addEventListener('load', () => ScrollTrigger.refresh());

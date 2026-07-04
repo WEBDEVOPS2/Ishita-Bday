@@ -2161,3 +2161,20 @@ img {
     display: none;
   }
 }
+
+/* ============================================
+   ASSET DOWNLOAD PREVENTION
+   ============================================ */
+/* Prevent long-press copy menu and text selection on mobile devices */
+img, video {
+  -webkit-touch-callout: none !important; /* iOS Safari touch callout */
+  -webkit-user-select: none !important;    /* Safari/Chrome select */
+  user-select: none !important;
+}
+
+/* Disable drag and pointer interactions on primary presentation media */
+/* (keeps draggable stickers functional while protecting main photos/videos) */
+.card__photo {
+  pointer-events: none !important;
+  -webkit-user-drag: none !important;
+}
