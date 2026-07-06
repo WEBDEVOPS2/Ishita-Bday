@@ -316,7 +316,7 @@ body.landing-active {
 
 /* ---- Celebration Screen ---- */
 .lg-celebration-text {
-  font-family: var(--lg-font-cute);
+  font-family: var(--lg-font-cute), "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
   font-size: 2rem;
   color: var(--lg-text);
   min-height: 3em;
