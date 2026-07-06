@@ -207,6 +207,7 @@
   // YES button → Celebration
   if (btnYes) {
     btnYes.addEventListener('click', () => {
+      tryPlayLandingMusic();
       showScreen(screenCelebrate);
       startCelebration('yes');
     });
@@ -222,6 +223,7 @@
     });
 
     btnNo.addEventListener('click', (e) => {
+      tryPlayLandingMusic();
       if (dodgeCount <= maxDodges) {
         // Try to dodge
         const dodged = dodgeNoButton();
@@ -239,6 +241,7 @@
   // GO BACK button → Celebration
   if (btnBack) {
     btnBack.addEventListener('click', () => {
+      tryPlayLandingMusic();
       showScreen(screenCelebrate);
       startCelebration('back');
     });
