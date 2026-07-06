@@ -672,6 +672,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const tryPlayMusic = () => {
     if (musicStarted) return;
 
+    // Don't start site music while the landing gate is still active
+    const landingGate = document.getElementById('landing-gate');
+    if (landingGate && !landingGate.classList.contains('is-dismissed')) return;
+
     // Check if the user is already scrolled to the closing/cake section
     const closingSection = document.getElementById('closing');
     const isPastClosing = closingSection && closingSection.getBoundingClientRect().top < window.innerHeight * 0.95;
