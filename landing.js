@@ -335,7 +335,7 @@
         return;
       }
 
-      const text = messages[msgIndex];
+      const chars = Array.from(messages[msgIndex]);
       let charIndex = 0;
 
       // Clear and add cursor
@@ -344,12 +344,19 @@
       }
 
       function typeChar() {
-        if (charIndex < text.length) {
-          // Insert character before cursor
+        if (charIndex < chars.length) {
+          const char = chars[charIndex];
           const cursor = celebrationTextEl.querySelector('.lg-typewriter-cursor');
-          const textNode = document.createTextNode(text[charIndex]);
           if (cursor) {
-            celebrationTextEl.insertBefore(textNode, cursor);
+            if (char.codePointAt(0) > 127) {
+              const span = document.createElement('span');
+              span.className = 'lg-emoji';
+              span.textContent = char;
+              celebrationTextEl.insertBefore(span, cursor);
+            } else {
+              const textNode = document.createTextNode(char);
+              celebrationTextEl.insertBefore(textNode, cursor);
+            }
           }
           charIndex++;
           setTimeout(typeChar, 40 + Math.random() * 30);
