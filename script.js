@@ -719,6 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addBackupListeners();
       });
   };
+  window.tryPlayMusic = tryPlayMusic;
 
   const handleBackupPlay = () => {
     tryPlayMusic();

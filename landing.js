@@ -29,9 +29,7 @@
   // ==============================
   // LANDING MUSIC (chatarpatar.mp3)
   // ==============================
-  const landingMusic = new Audio('chatarpatar.mp3');
-  landingMusic.loop = true;
-  landingMusic.volume = 0.4;
+  const landingMusic = document.getElementById('landing-music');
   let landingMusicStarted = false;
 
   function tryPlayLandingMusic() {
@@ -436,8 +434,8 @@
     document.body.classList.remove('landing-active');
 
     // Try to play main site music (uses the existing site's function)
-    if (typeof tryPlayMusic === 'function') {
-      tryPlayMusic();
+    if (typeof window.tryPlayMusic === 'function') {
+      window.tryPlayMusic();
     } else {
       // Fallback: manually try to play bg music
       const bgMusic = document.getElementById('bg-music');
