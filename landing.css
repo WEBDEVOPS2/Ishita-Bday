@@ -73,6 +73,9 @@ body.landing-active {
 }
 
 .lg-particle {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-style: normal !important;
+  font-weight: normal !important;
   position: absolute;
   font-size: 1.2rem;
   opacity: 0;
@@ -372,8 +375,18 @@ body.landing-active {
 
 /* ---- Emoji Decoration ---- */
 .lg-envelope {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-style: normal !important;
+  font-weight: normal !important;
   font-size: 3rem;
   animation: lg-envelope-bounce 2s ease-in-out infinite;
+}
+
+.lg-emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  display: inline-block;
 }
 
 @keyframes lg-envelope-bounce {
