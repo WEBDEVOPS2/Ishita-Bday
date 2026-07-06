@@ -70,6 +70,17 @@
     }, stepTime);
   }
 
+  // Pause/resume landing music when user switches tabs or backgrounds the app
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (landingMusicStarted) landingMusic.pause();
+    } else {
+      if (landingMusicStarted && !gate.classList.contains('is-dismissed')) {
+        landingMusic.play().catch(() => {});
+      }
+    }
+  });
+
   // ==============================
   // FLOATING PARTICLES (Hearts, Sparkles, Stars)
   // ==============================
