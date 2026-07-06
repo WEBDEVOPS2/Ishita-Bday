@@ -27,6 +27,50 @@
   document.body.classList.add('landing-active');
 
   // ==============================
+  // LANDING MUSIC (chatarpatar.mp3)
+  // ==============================
+  const landingMusic = new Audio('chatarpatar.mp3');
+  landingMusic.loop = true;
+  landingMusic.volume = 0.4;
+  let landingMusicStarted = false;
+
+  function tryPlayLandingMusic() {
+    if (landingMusicStarted) return;
+    landingMusic.play()
+      .then(() => { landingMusicStarted = true; })
+      .catch(() => {}); // Silently fail if blocked
+  }
+
+  // Attempt autoplay immediately
+  tryPlayLandingMusic();
+
+  // Fallback: play on first user interaction with the landing page
+  function onFirstInteraction() {
+    tryPlayLandingMusic();
+    gate.removeEventListener('click', onFirstInteraction);
+    gate.removeEventListener('touchstart', onFirstInteraction);
+  }
+  gate.addEventListener('click', onFirstInteraction);
+  gate.addEventListener('touchstart', onFirstInteraction);
+
+  function fadeOutLandingMusic(duration) {
+    if (!landingMusicStarted) return;
+    const steps = 20;
+    const stepTime = duration / steps;
+    let currentStep = 0;
+    const initialVolume = landingMusic.volume;
+    const fade = setInterval(() => {
+      currentStep++;
+      landingMusic.volume = Math.max(0, initialVolume * (1 - currentStep / steps));
+      if (currentStep >= steps) {
+        clearInterval(fade);
+        landingMusic.pause();
+        landingMusic.currentTime = 0;
+      }
+    }, stepTime);
+  }
+
+  // ==============================
   // FLOATING PARTICLES (Hearts, Sparkles, Stars)
   // ==============================
   const particleEmojis = ['💖', '✨', '💕', '⭐', '🦋', '💗', '🌸', '💫', '🎀'];
@@ -368,11 +412,14 @@
     // Stop particles
     clearInterval(particleInterval);
 
+    // Fade out landing music smoothly over 800ms
+    fadeOutLandingMusic(800);
+
     // Animate out
     gate.classList.add('is-dismissed');
     document.body.classList.remove('landing-active');
 
-    // Try to play music (uses the existing site's function)
+    // Try to play main site music (uses the existing site's function)
     if (typeof tryPlayMusic === 'function') {
       tryPlayMusic();
     } else {
