@@ -298,8 +298,8 @@
 
     // Typewriter text sequence
     const messages = source === 'yes'
-      ? ['Yayyyyy!! 💖', 'I knew you\'d say yes 🥹']
-      : ['Yayyyyy!! 💖', 'I knew you\'d come back 🥹'];
+      ? ['Yayyyyy!! 💖', 'I knew you\'d say yes 🥹', 'Turn up the volume and enjoy 🎵']
+      : ['Yayyyyy!! 💖', 'I knew you\'d come back 🥹', 'Turn up the volume and enjoy 🎵'];
 
     typewriterSequence(messages, () => {
       // Show Continue button after text finishes
