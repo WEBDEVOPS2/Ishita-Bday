@@ -423,8 +423,10 @@
     // Stop particles
     clearInterval(particleInterval);
 
-    // Fade out landing music smoothly over 800ms
-    fadeOutLandingMusic(800);
+    // Instantly stop landing music completely
+    landingMusic.pause();
+    landingMusic.currentTime = 0;
+    landingMusicStarted = false;
 
     // Animate out
     gate.classList.add('is-dismissed');
