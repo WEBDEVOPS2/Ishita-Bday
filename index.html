@@ -14,13 +14,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
     <link
-      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet" />
   </noscript>
 
@@ -29,6 +29,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
   <!-- Styles -->
+  <link rel="stylesheet" href="landing.css" />
   <link rel="stylesheet" href="style.css" />
 
   <!-- Vercel Web Analytics -->
@@ -48,6 +49,51 @@
 </head>
 
 <body>
+
+  <!-- ==============================
+       MAGICAL LANDING GATE
+       ============================== -->
+  <div id="landing-gate" class="landing-gate" role="dialog" aria-label="Welcome screen">
+
+    <!-- Animated gradient background -->
+    <div class="landing-gate__bg"></div>
+
+    <!-- Floating particles (hearts, sparkles, stars) -->
+    <div class="landing-gate__particles" aria-hidden="true"></div>
+
+    <!-- SCREEN 1: Welcome -->
+    <div id="lg-screen-welcome" class="landing-gate__screen">
+      <div class="landing-gate__card">
+        <div class="lg-envelope" aria-hidden="true">💌</div>
+        <h1 class="lg-title">Hey cutie...<br>I made something just for you 💌</h1>
+        <p class="lg-subtitle">Do you wanna see it?</p>
+        <div class="lg-buttons">
+          <button id="lg-btn-yes" class="lg-btn lg-btn--yes" type="button">Yes 💖</button>
+          <button id="lg-btn-no" class="lg-btn lg-btn--no" type="button">No 🙈</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: No (Sad Puppy) -->
+    <div id="lg-screen-no" class="landing-gate__screen">
+      <div class="landing-gate__card">
+        <img class="lg-puppy" src="sad_puppy.webp" alt="Sad puppy with teary eyes" width="200" height="200" />
+        <div id="lg-sad-text" class="lg-sad-text">
+          <span>Really...? 🥺</span>
+        </div>
+        <button id="lg-btn-back" class="lg-btn lg-btn--back" type="button">Go Back 👈</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Celebration -->
+    <div id="lg-screen-celebrate" class="landing-gate__screen">
+      <div class="landing-gate__card">
+        <div id="lg-celebration-text" class="lg-celebration-text"></div>
+        <button id="lg-btn-continue" class="lg-btn lg-btn--continue" type="button" style="display:none;">✨ Continue ✨</button>
+      </div>
+    </div>
+
+  </div>
 
   <!-- Background Music -->
   <audio id="bg-music" loop src="music.mp3?v=1.1" preload="auto"></audio>
@@ -690,6 +736,7 @@
     </div>
   </section>
 
+  <script src="landing.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 
