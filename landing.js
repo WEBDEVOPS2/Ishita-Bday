@@ -205,7 +205,11 @@
   // YES button → Celebration
   if (btnYes) {
     btnYes.addEventListener('click', () => {
-      tryPlayLandingMusic();
+      // Instantly pause and turn off landing music on Yes click
+      landingMusic.pause();
+      landingMusic.currentTime = 0;
+      landingMusicStarted = false;
+
       showScreen(screenCelebrate);
       startCelebration('yes');
     });
@@ -294,8 +298,8 @@
 
     // Typewriter text sequence
     const messages = source === 'yes'
-      ? ['Yayyyyy!! 💖', 'I knew you\'d say yes 🥹', 'You\'re literally the cutest.']
-      : ['Yayyyyy!! 💖', 'I knew you\'d come back 🥹', 'You\'re literally the cutest.'];
+      ? ['Yayyyyy!! 💖', 'I knew you\'d say yes 🥹']
+      : ['Yayyyyy!! 💖', 'I knew you\'d come back 🥹'];
 
     typewriterSequence(messages, () => {
       // Show Continue button after text finishes
