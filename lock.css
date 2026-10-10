@@ -1,0 +1,517 @@
+/* ============================================
+   PASSWORD LOCK SCREEN
+   Cute · Pastel · Glassmorphism · Premium
+   ============================================ */
+
+/* ---- Tokens ---- */
+.pw-lock {
+  --pw-pink: #FFD6E0;
+  --pw-pink-deep: #FF8FAB;
+  --pw-lavender: #E0C3FC;
+  --pw-cream: #FFF8F0;
+  --pw-blue: #C5DCFF;
+  --pw-mint: #C8F7DC;
+  --pw-text: #5C4B6B;
+  --pw-text-light: #9B8AA8;
+  --pw-white: #FFFFFF;
+  --pw-card-shadow: 0 20px 60px rgba(92, 75, 107, 0.15);
+  --pw-font-cute: 'Caveat', cursive;
+  --pw-font-clean: 'Inter', sans-serif;
+  --pw-success: #7EE08F;
+  --pw-error: #FF6B6B;
+}
+
+/* ---- Full-Screen Overlay ---- */
+.pw-lock {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pw-lock.is-dismissed {
+  opacity: 0;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+body.pw-lock-active {
+  overflow: hidden !important;
+}
+
+/* ---- Animated Gradient Background ---- */
+.pw-lock__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    #FDE2FF 0%,
+    #E8D5F5 20%,
+    #FFE4EE 40%,
+    #D5E8FF 60%,
+    #F0E6FF 80%,
+    #FFE8F5 100%
+  );
+  background-size: 600% 600%;
+  animation: pw-gradient-drift 16s ease infinite;
+}
+
+@keyframes pw-gradient-drift {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 0%; }
+  50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---- Floating Particles ---- */
+.pw-lock__particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pw-particle {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  animation: pw-float linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes pw-float {
+  0%   { transform: translateY(0) rotate(0deg) scale(0.4); opacity: 0; }
+  10%  { opacity: 0.6; }
+  80%  { opacity: 0.4; }
+  100% { transform: translateY(-100vh) rotate(360deg) scale(1); opacity: 0; }
+}
+
+/* ---- Glassmorphism Card ---- */
+.pw-lock__card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border-radius: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    var(--pw-card-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 48px 40px 40px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: pw-card-entry 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes pw-card-entry {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- Lock Icon ---- */
+.pw-lock__icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFE4F0 0%, #E8D0FF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(224, 195, 252, 0.35);
+  animation: pw-lock-bob 3s ease-in-out infinite;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pw-lock__icon.is-unlocked {
+  background: linear-gradient(135deg, #C8F7DC 0%, #A8E6CF 100%);
+  box-shadow: 0 8px 30px rgba(126, 224, 143, 0.4);
+  animation: pw-lock-spin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pw-lock__emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+  font-size: 2.2rem;
+  display: block;
+  line-height: 1;
+}
+
+@keyframes pw-lock-bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-6px) rotate(3deg); }
+}
+
+@keyframes pw-lock-spin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* ---- Typography ---- */
+.pw-lock__title {
+  font-family: var(--pw-font-cute);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--pw-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.pw-lock__subtitle {
+  font-family: var(--pw-font-clean);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--pw-text-light);
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+/* ---- User Selection ---- */
+.pw-lock__users {
+  display: flex;
+  gap: 20px;
+  margin: 8px 0;
+}
+
+.pw-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(224, 195, 252, 0.3);
+  border-radius: 24px;
+  padding: 20px 28px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.pw-user::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 143, 171, 0.15) 0%, rgba(224, 195, 252, 0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pw-user:hover::before {
+  opacity: 1;
+}
+
+.pw-user:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: rgba(255, 143, 171, 0.5);
+  box-shadow: 0 12px 30px rgba(255, 143, 171, 0.2);
+}
+
+.pw-user.is-selected {
+  border-color: var(--pw-pink-deep);
+  background: linear-gradient(135deg, rgba(255, 214, 224, 0.6) 0%, rgba(224, 195, 252, 0.4) 100%);
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 12px 35px rgba(255, 143, 171, 0.3);
+}
+
+.pw-user.is-selected::before {
+  opacity: 1;
+}
+
+.pw-user__avatar {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+  font-size: 2.4rem;
+  display: block;
+  transition: transform 0.3s ease;
+  animation: pw-avatar-idle 4s ease-in-out infinite;
+}
+
+.pw-user.is-selected .pw-user__avatar {
+  animation: pw-avatar-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pw-user__name {
+  font-family: var(--pw-font-cute);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--pw-text);
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pw-avatar-idle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+@keyframes pw-avatar-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.3) rotate(-5deg); }
+  70%  { transform: scale(0.9) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ---- Password Input Area ---- */
+.pw-lock__input-area {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  animation: pw-slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.pw-lock__input-area.is-visible {
+  display: flex;
+}
+
+@keyframes pw-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pw-lock__greeting {
+  font-family: var(--pw-font-cute);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--pw-text);
+  margin: 0;
+}
+
+/* Input Wrapper */
+.pw-lock__input-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+}
+
+.pw-lock__input {
+  width: 100%;
+  padding: 16px 20px 16px 46px;
+  font-family: var(--pw-font-clean);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--pw-text);
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(224, 195, 252, 0.4);
+  border-radius: 50px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  letter-spacing: 0.15em;
+}
+
+.pw-lock__input::placeholder {
+  color: var(--pw-text-light);
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+
+.pw-lock__input:focus {
+  border-color: var(--pw-pink-deep);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 4px rgba(255, 143, 171, 0.15),
+              0 4px 16px rgba(255, 143, 171, 0.1);
+}
+
+.pw-lock__input.is-error {
+  border-color: var(--pw-error);
+  animation: pw-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15);
+}
+
+.pw-lock__input.is-success {
+  border-color: var(--pw-success);
+  box-shadow: 0 0 0 4px rgba(126, 224, 143, 0.2);
+}
+
+.pw-lock__input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+  pointer-events: none;
+}
+
+@keyframes pw-shake {
+  0%, 100% { transform: translateX(0); }
+  10%      { transform: translateX(-6px); }
+  20%      { transform: translateX(6px); }
+  30%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  50%      { transform: translateX(-4px); }
+  60%      { transform: translateX(4px); }
+  70%      { transform: translateX(-2px); }
+  80%      { transform: translateX(2px); }
+}
+
+/* ---- Unlock Button ---- */
+.pw-lock__unlock-btn {
+  font-family: var(--pw-font-clean);
+  font-weight: 600;
+  font-size: 1.05rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 16px 48px;
+  background: linear-gradient(135deg, #FF8FAB 0%, #E0C3FC 50%, #C5DCFF 100%);
+  background-size: 200% 200%;
+  color: white;
+  box-shadow: 0 8px 25px rgba(255, 143, 171, 0.3);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  animation: pw-btn-shimmer 4s ease infinite;
+  text-shadow: 0 1px 2px rgba(92, 75, 107, 0.15);
+}
+
+.pw-lock__unlock-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(255, 143, 171, 0.4);
+}
+
+.pw-lock__unlock-btn:active {
+  transform: scale(0.96) !important;
+}
+
+@keyframes pw-btn-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---- Error Message ---- */
+.pw-lock__error {
+  font-family: var(--pw-font-clean);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--pw-error);
+  margin: 0;
+  min-height: 1.2em;
+  transition: opacity 0.3s ease;
+}
+
+/* ---- Hint ---- */
+.pw-lock__hint {
+  font-family: var(--pw-font-cute);
+  font-size: 1rem;
+  color: var(--pw-text-light);
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* ---- Success overlay sparkles ---- */
+.pw-lock__success-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.pw-sparkle {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0;
+  animation: pw-sparkle-burst 1.2s ease-out forwards;
+}
+
+@keyframes pw-sparkle-burst {
+  0%   { opacity: 1; transform: translate(0, 0) scale(0.5); }
+  50%  { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(1.2); }
+  100% { opacity: 0; transform: translate(calc(var(--dx) * 1.5), calc(var(--dy) * 1.5)) scale(0.3); }
+}
+
+/* ---- Mobile Responsive ---- */
+@media (max-width: 480px) {
+  .pw-lock__card {
+    padding: 36px 24px 32px;
+    border-radius: 28px;
+    gap: 14px;
+  }
+
+  .pw-lock__title {
+    font-size: 1.8rem;
+  }
+
+  .pw-lock__icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .pw-lock__emoji {
+    font-size: 1.8rem;
+  }
+
+  .pw-lock__users {
+    gap: 14px;
+  }
+
+  .pw-user {
+    padding: 16px 22px;
+    border-radius: 20px;
+  }
+
+  .pw-user__avatar {
+    font-size: 2rem;
+  }
+
+  .pw-user__name {
+    font-size: 1.1rem;
+  }
+
+  .pw-lock__input {
+    padding: 14px 16px 14px 42px;
+    font-size: 0.95rem;
+  }
+
+  .pw-lock__unlock-btn {
+    padding: 14px 40px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .pw-lock__card {
+    padding: 28px 18px 24px;
+    border-radius: 24px;
+  }
+
+  .pw-lock__title {
+    font-size: 1.5rem;
+  }
+
+  .pw-user {
+    padding: 14px 18px;
+  }
+}

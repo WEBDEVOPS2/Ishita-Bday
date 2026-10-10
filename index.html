@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- v1.1.2 -->
 <html lang="en">
 
 <head>
@@ -29,6 +28,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
   <!-- Styles -->
+  <link rel="stylesheet" href="lock.css" />
   <link rel="stylesheet" href="landing.css" />
   <link rel="stylesheet" href="style.css" />
 
@@ -50,6 +50,64 @@
 
 <body>
 
+  <!-- ==============================
+       PASSWORD LOCK SCREEN
+       ============================== -->
+  <div id="password-lock" class="pw-lock" role="dialog" aria-label="Password lock screen">
+
+    <!-- Animated gradient background -->
+    <div class="pw-lock__bg"></div>
+
+    <!-- Floating hearts / sparkles -->
+    <div class="pw-lock__particles" aria-hidden="true"></div>
+
+    <!-- Lock content -->
+    <div class="pw-lock__card">
+
+      <!-- Lock icon with bounce -->
+      <div class="pw-lock__icon" id="pw-lock-icon">
+        <span class="pw-lock__emoji">🔒</span>
+      </div>
+
+      <h1 class="pw-lock__title">Who's visiting? 💌</h1>
+      <p class="pw-lock__subtitle">Pick your name to continue</p>
+
+      <!-- User selection -->
+      <div class="pw-lock__users">
+        <button class="pw-user" id="pw-user-ishita" type="button" data-user="ishita">
+          <span class="pw-user__avatar">🌸</span>
+          <span class="pw-user__name">Ishita</span>
+        </button>
+        <button class="pw-user" id="pw-user-saksham" type="button" data-user="saksham">
+          <span class="pw-user__avatar">🚀</span>
+          <span class="pw-user__name">Saksham</span>
+        </button>
+      </div>
+
+      <!-- Password input (hidden until user selected) -->
+      <div class="pw-lock__input-area" id="pw-input-area">
+        <p class="pw-lock__greeting" id="pw-greeting"></p>
+        <div class="pw-lock__input-wrap">
+          <input
+            type="password"
+            id="pw-input"
+            class="pw-lock__input"
+            placeholder="Enter secret password ✨"
+            autocomplete="off"
+            maxlength="20"
+          />
+          <span class="pw-lock__input-icon">🗝️</span>
+        </div>
+        <button class="pw-lock__unlock-btn" id="pw-unlock-btn" type="button">
+          Unlock <span class="lg-emoji">💖</span>
+        </button>
+        <p class="pw-lock__error" id="pw-error"></p>
+        <p class="pw-lock__hint">Hint: our special word 💕</p>
+      </div>
+
+    </div>
+  </div>
+  
   <!-- ==============================
        MAGICAL LANDING GATE
        ============================== -->
@@ -737,6 +795,7 @@
     </div>
   </section>
 
+  <script src="lock.js" defer></script>
   <script src="landing.js" defer></script>
   <script src="script.js" defer></script>
 </body>
