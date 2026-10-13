@@ -84,7 +84,7 @@
       // Update greeting
       const greetings = {
         ishita: 'Hey Ishita! 🌸',
-        saksham: 'Hey Saksham! 🚀'
+        saksham: 'Hey Developer! 🚀'
       };
       greetingEl.textContent = greetings[user] || 'Hello!';
 
