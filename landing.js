@@ -28,21 +28,28 @@
 
   // ==============================
   // LANDING MUSIC (chatarpatar.mp3)
+  // Injected dynamically by lock.js after password unlock
   // ==============================
-  const landingMusic = document.getElementById('landing-music');
+  let landingMusic = null;
   let landingMusicStarted = false;
 
+  function getLandingMusic() {
+    if (!landingMusic) {
+      landingMusic = document.getElementById('landing-music');
+    }
+    return landingMusic;
+  }
+
   function tryPlayLandingMusic() {
-    if (landingMusicStarted) return;
-    landingMusic.play()
+    const audio = getLandingMusic();
+    if (!audio || landingMusicStarted) return;
+    audio.play()
       .then(() => { landingMusicStarted = true; })
       .catch(() => {}); // Silently fail if blocked
   }
 
-  // Attempt autoplay immediately
-  tryPlayLandingMusic();
-
-  // Fallback: play on first user interaction with the landing page
+  // Don't attempt autoplay — audio element doesn't exist until after unlock
+  // Instead, play on first user interaction with the landing page
   function onFirstInteraction() {
     tryPlayLandingMusic();
     gate.removeEventListener('click', onFirstInteraction);
@@ -52,29 +59,32 @@
   gate.addEventListener('touchstart', onFirstInteraction);
 
   function fadeOutLandingMusic(duration) {
-    if (!landingMusicStarted) return;
+    const audio = getLandingMusic();
+    if (!audio || !landingMusicStarted) return;
     const steps = 20;
     const stepTime = duration / steps;
     let currentStep = 0;
-    const initialVolume = landingMusic.volume;
+    const initialVolume = audio.volume;
     const fade = setInterval(() => {
       currentStep++;
-      landingMusic.volume = Math.max(0, initialVolume * (1 - currentStep / steps));
+      audio.volume = Math.max(0, initialVolume * (1 - currentStep / steps));
       if (currentStep >= steps) {
         clearInterval(fade);
-        landingMusic.pause();
-        landingMusic.currentTime = 0;
+        audio.pause();
+        audio.currentTime = 0;
       }
     }, stepTime);
   }
 
   // Pause/resume landing music when user switches tabs or backgrounds the app
   document.addEventListener('visibilitychange', () => {
+    const audio = getLandingMusic();
+    if (!audio) return;
     if (document.hidden) {
-      if (landingMusicStarted) landingMusic.pause();
+      if (landingMusicStarted) audio.pause();
     } else {
       if (landingMusicStarted && !gate.classList.contains('is-dismissed')) {
-        landingMusic.play().catch(() => {});
+        audio.play().catch(() => {});
       }
     }
   });
@@ -206,8 +216,11 @@
   if (btnYes) {
     btnYes.addEventListener('click', () => {
       // Instantly pause and turn off landing music on Yes click
-      landingMusic.pause();
-      landingMusic.currentTime = 0;
+      const audio = getLandingMusic();
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
       landingMusicStarted = false;
 
       showScreen(screenCelebrate);
@@ -436,8 +449,11 @@
     clearInterval(particleInterval);
 
     // Instantly stop landing music completely
-    landingMusic.pause();
-    landingMusic.currentTime = 0;
+    const audio = getLandingMusic();
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
     landingMusicStarted = false;
 
     // Animate out

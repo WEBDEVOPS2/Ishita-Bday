@@ -163,6 +163,15 @@
     // Burst sparkles from center
     burstSparkles();
 
+    // Inject the landing music audio element now that user is authenticated
+    // This prevents unauthenticated users from accessing chatarpatar.mp3
+    const landingAudio = document.createElement('audio');
+    landingAudio.id = 'landing-music';
+    landingAudio.loop = true;
+    landingAudio.preload = 'auto';
+    landingAudio.src = 'chatarpatar.mp3';
+    document.body.appendChild(landingAudio);
+
     // Disable input
     passwordInput.disabled = true;
     unlockBtn.disabled = true;
